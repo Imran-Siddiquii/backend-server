@@ -1,4 +1,4 @@
-const User = require('../models/users');
+import User from '../models/users.js';
 // user signup
 const userSignUpController = async (req, res) => {
   const data = req.body;
@@ -61,20 +61,15 @@ const changePasswordController = async (req, res) => {
         ) {
           Object.assign(updatePassword, { password: newPassword });
           const updatedUser = await updatePassword.save();
-          res.json({message:"Password has changed successfully"});
+          res.json({ message: 'Password has changed successfully' });
         } else {
           res.status(400).json({ error: 'Old password in wrong' });
         }
-      }else{
-          res.status(400).json({ error: 'user not found' });
-
+      } else {
+        res.status(400).json({ error: 'user not found' });
       }
     }
   } catch (error) {}
 };
 
-module.exports = {
-  userSignUpController,
-  userLoginController,
-  changePasswordController,
-};
+export { userSignUpController, userLoginController, changePasswordController };

@@ -15,4 +15,4 @@ const cars = [
   { id: 14, make: 'Subaru', model: 'Outback', year: 2021 },
   { id: 15, make: 'Volkswagen', model: 'Golf', year: 2022 },
 ];
-module.exports = cars;
+export default cars;

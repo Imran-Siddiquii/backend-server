@@ -1,11 +1,13 @@
-const mongoose = require('mongoose');
+import { connect } from 'mongoose';
 
+import { config } from 'dotenv';
+config();
 // Access your MongoDB connection string from secrets
-require('dotenv').config();
+// require('dotenv').config();
 const mongoURI = process.env.MONGODB_URI;
 const initializeDatabase = async () => {
   try {
-    const connection = await mongoose.connect(mongoURI, {
+    const connection = await connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -17,4 +19,4 @@ const initializeDatabase = async () => {
   }
 };
 
-module.exports = { initializeDatabase };
+export default initializeDatabase;

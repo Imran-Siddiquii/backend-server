@@ -1,14 +1,12 @@
 // app.js
-
-const mongoose = require('mongoose');
-const { initializeDatabase } = require('./db/index');
-const express = require('express');
+import initializeDatabase from './db/index.js';
+import express, { json } from 'express';
 const app = express();
-const carRouter = require('./routes/cars.route');
-const movieRouter = require('./routes/movies.route');
-const userRouter = require('./routes/user.router');
+import carRouter from './routes/cars.route.js';
+import movieRouter from './routes/movies.route.js';
+import userRouter from './routes/user.router.js';
 
-app.use(express.json());
+app.use(json());
 
 initializeDatabase();
 
@@ -19,4 +17,3 @@ app.listen(3000, () => {
 app.use('/cars', carRouter);
 app.use('/movies', movieRouter);
 app.use('/users', userRouter);
-

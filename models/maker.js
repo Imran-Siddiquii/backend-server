@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const makerSchema = new mongoose.Schema({
+const makerSchema = new Schema({
   name: String,
   log: String,
   tagline: String,
 });
 
-const Maker = mongoose.model('Maker', makerSchema);
-module.exports = Maker;
+const Maker = model('Maker', makerSchema);
+export default Maker;

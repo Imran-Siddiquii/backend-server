@@ -1,5 +1,4 @@
-const { findOneAndUpdate } = require('../models/car');
-const Movie = require('../models/movies');
+import Movie from '../models/movies.js';
 
 const getMoviesList = async (req, res) => {
   try {
@@ -115,17 +114,17 @@ const sortedByRating = async (req, res) => {
 };
 
 // movie sorted by accending order
-const sortedByReleaseYear=async(req,res)=>{
- try {
-   const sortedData = await Movie.find({}).sort({ releaseYear: 1 });
-   console.log('Movies sorted by release yearn (accending):', sortedData);
-   res.json(sortedData);
- } catch (error) {
-   res.status(400).json({ error });
- }
-}
+const sortedByReleaseYear = async (req, res) => {
+  try {
+    const sortedData = await Movie.find({}).sort({ releaseYear: 1 });
+    console.log('Movies sorted by release yearn (accending):', sortedData);
+    res.json(sortedData);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
 
-module.exports = {
+export {
   getMoviesList,
   getMovieByActorName,
   getMoviesByDirectorName,

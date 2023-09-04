@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+import { Schema, model as _model } from 'mongoose';
 
-const carSchema = new mongoose.Schema({
+const carSchema = new Schema({
   model: String,
   year: Number,
   maker: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Maker',
   },
 });
 
-const Car = mongoose.model('Car', carSchema);
-module.exports = Car;
+const Car = _model('Car', carSchema);
+export default Car;
