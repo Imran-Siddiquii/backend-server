@@ -72,4 +72,40 @@ const changePasswordController = async (req, res) => {
   } catch (error) {}
 };
 
-export { userSignUpController, userLoginController, changePasswordController };
+// updating profile picture
+
+const findUser = async (email) => {
+  const user = await User.findOne({ email });
+  return user;
+};
+
+const updateProfilePictureController = async (req, res) => {
+  const { email, profilePictureUrl } = req.body;
+
+  if (email && profilePictureUrl) {
+    try {
+      const findData = await findUser(email);
+
+      if (findData) {
+        const updateProfile = Object.assign(findData, { profilePictureUrl });
+        const savedData = await updateProfile.save();
+        res.json({ savedData });
+      } else {
+        res.status(400).json({ message: 'Wrong email id' });
+      }
+    } catch (error) {
+      res
+        .status(400)
+        .json({ error: 'email and profile picture are mandatory' });
+    }
+  } else {
+    res.status(400).json({ error: 'email and profile picture are mandatory' });
+  }
+};
+
+export {
+  userSignUpController,
+  userLoginController,
+  changePasswordController,
+  updateProfilePictureController,
+};

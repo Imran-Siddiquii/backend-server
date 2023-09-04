@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { userSignUpController, userLoginController, changePasswordController } from '../controllers/user.controller.js';
+import {
+  userSignUpController,
+  userLoginController,
+  changePasswordController,
+  updateProfilePictureController,
+} from '../controllers/user.controller.js';
 const userRouter = Router();
 
 // routes
@@ -7,5 +12,6 @@ const userRouter = Router();
 userRouter.post('/signup', userSignUpController);
 userRouter.post('/login', userLoginController);
 userRouter.post('/change-password', changePasswordController);
+userRouter.post('/update-profile-picture', updateProfilePictureController);
 
 export default userRouter;
