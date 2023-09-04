@@ -124,6 +124,38 @@ const sortedByReleaseYear = async (req, res) => {
   }
 };
 
+//  response movie with pages and pageSize
+const movieListByPageController = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.pageSize) || 10;
+  try {
+    const allData = await Movie.find();
+    const totalPage = Math.ceil(allData.length / pageSize);
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + Number(pageSize);
+    const list = allData.slice(startIndex, endIndex);
+    if (page > totalPage) {
+      res.json({
+        totalPage,
+        page,
+        pageSize,
+        totalMovies: allData.length,
+        list: 'page not found',
+      });
+    } else {
+      res.json({
+        totalPage,
+        page,
+        pageSize,
+        totalMovies: allData.length,
+        list,
+      });
+    }
+  } catch (error) {
+    res.status.json({ error });
+  }
+};
+
 export {
   getMoviesList,
   getMovieByActorName,
@@ -133,4 +165,5 @@ export {
   deleteMovie,
   sortedByRating,
   sortedByReleaseYear,
+  movieListByPageController,
 };
