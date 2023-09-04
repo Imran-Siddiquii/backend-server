@@ -5,6 +5,7 @@ import {
   changePasswordController,
   updateProfilePictureController,
   updateContactDetailsController,
+  findUserByPhoneNumberController,
 } from '../controllers/user.controller.js';
 const userRouter = Router();
 
@@ -15,5 +16,5 @@ userRouter.post('/login', userLoginController);
 userRouter.post('/change-password', changePasswordController);
 userRouter.post('/update-profile-picture', updateProfilePictureController);
 userRouter.post('/update-contact/:email', updateContactDetailsController);
-
+userRouter.post('/phone/:phoneNumber',findUserByPhoneNumberController)
 export default userRouter;

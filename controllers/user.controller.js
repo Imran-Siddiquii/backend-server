@@ -127,10 +127,27 @@ const updateContactDetailsController = async (req, res) => {
   }
 };
 
+// find user by phone number
+const findUserByPhoneNumberController = async (req, res) => {
+  const { phoneNumber } = req.params;
+
+  try {
+    const findUser = await User.findOne({ phoneNumber });
+    if (findUser) {
+      res.json(findUser);
+    } else {
+      res.status(400).json({ error: 'user not found' });
+    }
+  } catch (error) {
+    res.status.json({error:"bad request"})
+  }
+};
+
 export {
   userSignUpController,
   userLoginController,
   changePasswordController,
   updateProfilePictureController,
   updateContactDetailsController,
+  findUserByPhoneNumberController,
 };
