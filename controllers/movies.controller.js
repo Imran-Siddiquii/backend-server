@@ -156,6 +156,38 @@ const movieListByPageController = async (req, res) => {
   }
 };
 
+// add rating and movie review
+
+const updateMovieRating = async (movieId, rating, review, userId) => {
+  try {
+    const findMovie = await Movie.findOne({ _id: movieId });
+    if (findMovie) {
+      findMovie.ratings.push(rating);
+      findMovie.reviews.push({ user: userId, text: review });
+      await findMovie.save();
+      const updateMovieAndReview = await Movie.findOne({
+        _id: movieId,
+      }).populate('reviews.user', 'username profilePictureUrl');
+      return updateMovieAndReview;
+    }
+  } catch (error) {}
+};
+const addRatingAndReviewController = async (req, res) => {
+  const { movieId } = req.params;
+  const { rating, review, userId } = req.body;
+  try {
+    const updateRatingAndReview = await updateMovieRating(
+      movieId,
+      rating,
+      review,
+      userId
+    );
+    res.json({ updateRatingAndReview });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+};
+
 export {
   getMoviesList,
   getMovieByActorName,
@@ -166,4 +198,5 @@ export {
   sortedByRating,
   sortedByReleaseYear,
   movieListByPageController,
+  addRatingAndReviewController,
 };

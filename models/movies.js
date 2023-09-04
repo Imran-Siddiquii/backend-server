@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, mongoose } from 'mongoose';
 
 const movieSchema = Schema(
   {
@@ -51,6 +51,22 @@ const movieSchema = Schema(
       max: 10,
       default: 0,
     },
+    ratings: [
+      {
+        type: Number,
+        min: 0,
+        max: 10,
+      },
+    ],
+    reviews: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        text: String,
+      },
+    ],
     plot: {
       type: String,
     },

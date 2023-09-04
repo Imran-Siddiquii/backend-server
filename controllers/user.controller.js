@@ -136,10 +136,10 @@ const findUserByPhoneNumberController = async (req, res) => {
     if (findUser) {
       res.json(findUser);
     } else {
-      res.status(400).json({ error: 'user not found' });
+      res.status(400).json({ error: 'User not found' });
     }
   } catch (error) {
-    res.status.json({error:"bad request"})
+    res.status(500).json({ error: 'Failed to fetch user' });
   }
 };
 
