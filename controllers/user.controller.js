@@ -103,9 +103,34 @@ const updateProfilePictureController = async (req, res) => {
   }
 };
 
+// update contact details by email id
+const updateContactDetails = async (email, body) => {
+  const userFound = await User.findOne({ email });
+  return userFound;
+};
+
+const updateContactDetailsController = async (req, res) => {
+  const body = req.body;
+  const { email } = req.params;
+
+  try {
+    const updatedUser = await updateContactDetails(email, body);
+    if (updatedUser) {
+      const updateContact = Object.assign(updatedUser, body);
+      const saveContact = await updateContact.save();
+      res.json(saveContact);
+    } else {
+      res.status(400).json({ erorr: 'user not found' });
+    }
+  } catch (error) {
+    res.status.jso({ error: 'Bad request' });
+  }
+};
+
 export {
   userSignUpController,
   userLoginController,
   changePasswordController,
   updateProfilePictureController,
+  updateContactDetailsController,
 };
